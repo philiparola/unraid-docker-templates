@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Containers>
+  <Date>2021-1-31</Date>
+  <Beta>False</Beta>
+  <Category>Downloaders: Network:Proxy Tools:</Category>
+  <Name>pypiserver</Name>
+  <Project>https://pypi.org/project/pypiserver/</Project>
+  <Changes>
+	[center][font size=4]pypiserver Change Log[/font][/center]
+
+	[font size=3]2021.1.31[/font]
+	- Initial Release
+  </Changes>
+  <Overview>
+    pypiserver - minimal PyPI server for use with pip/easy_install
+  </Overview>
+  <Description>
+    pypiserver is a minimal PyPI compatible server for pip or easy_install. It is based on bottle and serves packages from regular directories. Wheels, bdists, eggs and accompanying PGP-signatures can be uploaded either with pip, setuptools, twine, pypi-uploader, or simply copied with scp.
+	[br][br]
+    [b][span style='color: #E80000;']Directions:[/span][/b][br]
+    [b]/data/auth[/b] : this is where pypiserver looks for the authentication configuration files.[br][br]
+    [b]/data/packages[/b] : this is where pypiserver will store its databases and configuration.  This location can grow very large, very quickly.[br][br]
+  </Description>
+  <Registry>https://registry.hub.docker.com/u/pypiserver/pypiserver</Registry>
+  <GitHub>https://github.com/pypiserver/pypiserver</GitHub>
+  <Repository>pypiserver/pypiserver</Repository>
+  <Support>https://github.com/philiparola/unraid-docker-templates/issues</Support>
+  <BindTime>true</BindTime>
+  <Privileged>false</Privileged>
+<Networking>
+    <Mode>bridge</Mode>
+    <Publish>
+      <Port>
+        <HostPort>80</HostPort>
+        <ContainerPort>8080</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Environment/>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/pypiserver-packages</HostDir>
+      <ContainerDir>/data/packages</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+	<Volume>
+      <HostDir>/mnt/user/appdata/pypiserver</HostDir>
+      <ContainerDir>/data/auth</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Icon>https://github.com/philiparola/unraid-docker-templates/raw/main/images/pip.png</Icon>
+
+  <Config Type="Port" Name=" Port" Target="8080" Default="80" Mode="tcp" Display="always-hide" Required="true"
+       Description="This is pypiserver's port you point pip clients to.">8080</Config>
+
+  <Config Type="Path" Name="Config Storage Path" Target="/data/packages" Default="/mnt/user/appdata/pypiserver-packages" Mode="rw" Display="advanced-hide" Required="true"
+       Description="This is where pypiserver will store its databases and configuration.  Please be aware that this directory can get vary large, very fast.  Please be aware that this directory can get vary large, very fast.">/mnt/user/appdata/pypiserver-packages</Config>
+  <Config Type="Path" Name="Config Storage Path" Target="/data/auth" Default="/mnt/user/appdata/pypiserver" Mode="rw" Display="advanced-hide" Required="false"
+       Description="This is where pypiserver looks for the authentication configuration files.">/mnt/user/appdata/pypiserver</Config>
+</Containers>
